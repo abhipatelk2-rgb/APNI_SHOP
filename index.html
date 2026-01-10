@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- 🔥 UTF-8 FIX (VERY IMPORTANT) -->
+  <meta charset="UTF-8">
+
+  <title>Electric Lint Remover</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f5f5f5;
+    }
+
+    header {
+      background: #fff;
+      padding: 12px;
+      text-align: center;
+      font-size: 18px;
+      font-weight: bold;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .container {
+      padding: 15px;
+    }
+
+    /* 🔥 IMAGE SCROLL */
+    .slider {
+      display: flex;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      gap: 10px;
+    }
+
+    .slider img {
+      min-width: 100%;
+      border-radius: 10px;
+      scroll-snap-align: start;
+    }
+
+    .title {
+      font-size: 18px;
+      font-weight: bold;
+      margin: 12px 0;
+    }
+
+    .price {
+      font-size: 22px;
+      font-weight: bold;
+      color: green;
+    }
+
+    .cod-price {
+      font-size: 14px;
+      color: #555;
+      margin-top: 4px;
+    }
+
+    .rating {
+      background: #2e7d32;
+      color: white;
+      display: inline-block;
+      padding: 4px 8px;
+      border-radius: 5px;
+      font-size: 13px;
+      margin: 8px 0;
+    }
+
+    .features {
+      background: #fff;
+      padding: 12px;
+      border-radius: 10px;
+      margin-top: 15px;
+    }
+
+    .features li {
+      margin-bottom: 6px;
+      font-size: 14px;
+    }
+
+    .box {
+      background: #fff;
+      padding: 12px;
+      border-radius: 10px;
+      margin-top: 15px;
+    }
+
+    button {
+      width: 100%;
+      padding: 14px;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      margin-top: 10px;
+      cursor: pointer;
+    }
+
+    .online {
+      background: #1976d2;
+      color: white;
+    }
+
+    .cod {
+      background: #25D366;
+      color: white;
+    }
+
+    .note {
+      font-size: 13px;
+      color: #555;
+      margin-top: 6px;
+    }
+  </style>
+</head>
+<body>
+
+<header>🛒 My Store</header>
+
+<div class="container">
+
+  <!-- 🔥 SCROLLING IMAGES -->
+  <div class="slider">
+    <img src="image/1.jpg">
+    <img src="image/2.jpg">
+    <img src="image/3.jpg">
+    <img src="image/4.jpg">
+  </div>
+
+  <!-- PRODUCT INFO -->
+  <div class="title">
+    Lint Remover for Clothes | USB Rechargeable
+  </div>
+
+  <div class="price">₹309</div>
+  <div class="cod-price">
+    ₹309 Total • ₹214 COD • ₹95 Advance
+  </div>
+
+  <div class="rating">⭐ 4.1 | 10,000+ Reviews</div>
+
+  <!-- FEATURES -->
+  <div class="features">
+    <b>Product Features</b>
+    <ul>
+      <li>✔ Removes lint, fuzz & fabric balls</li>
+      <li>✔ Safe for woollen & winter clothes</li>
+      <li>✔ USB rechargeable</li>
+      <li>✔ Easy to use & portable</li>
+      <li>✔ Best for sweaters, blankets & sarees</li>
+    </ul>
+  </div>
+
+  <!-- ONLINE PAYMENT -->
+  <div class="box">
+    <b>🔵 Full Online Payment</b>
+    <p class="note">
+      Pay full <b>₹309</b> online & get faster dispatch.
+    </p>
+    <button class="online" onclick="onlinePay()">
+      Pay ₹309 Online
+    </button>
+  </div>
+
+  <!-- COD PAYMENT -->
+  <div class="box">
+    <b>🟢 Cash on Delivery</b>
+    <p class="note">
+      To confirm COD order:<br>
+      👉 Pay <b>₹95</b> now<br>
+      👉 Pay <b>₹214</b> on delivery
+    </p>
+    <button class="cod" onclick="codOrder()">
+      Order COD (₹95 Advance)
+    </button>
+  </div>
+
+</div>
+
+<script>
+function onlinePay() {
+  const msg = encodeURIComponent(
+    "Hi, I want to order Electric Lint Remover.\n\n" +
+    "Payment Type: Full Online\n" +
+    "Amount: ₹309\n\n" +
+    "Please share payment details."
+  );
+
+  window.open(
+    "https://api.whatsapp.com/send?phone=917793085623&text=" + msg,
+    "_blank"
+  );
+}
+
+function codOrder() {
+  const msg = encodeURIComponent(
+    "Hi, I want to order Electric Lint Remover.\n\n" +
+    "Payment Type: COD\n" +
+    "Advance: ₹95\n" +
+    "Pay on Delivery: ₹214\n\n" +
+    "Please share UPI QR."
+  );
+
+  window.open(
+    "https://api.whatsapp.com/send?phone=917793085623&text=" + msg,
+    "_blank"
+  );
+}
+</script>
+
+</body>
+</html>
+
