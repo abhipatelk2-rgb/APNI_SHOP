@@ -155,6 +155,42 @@ body {
   transform: scale(0.97);
   box-shadow: inset 0 3px 8px rgba(0,0,0,0.25);
 }
+/* 🔘 Product Options */
+.option-btn{
+  border:2px solid #ddd;
+  padding:12px;
+  border-radius:10px;
+  margin-top:10px;
+  cursor:pointer;
+  transition:0.25s;
+  background:#fafafa;
+}
+
+.option-btn b{
+  font-size:15px;
+}
+
+.option-btn span{
+  font-size:13px;
+  color:#555;
+}
+
+/* Selected state */
+.option-btn.active{
+  border-color:#1976d2;
+  background:#e3f2fd;
+  box-shadow:0 0 0 2px rgba(25,118,210,0.2);
+}
+
+.option-btn.active::after{
+  content:"✓ Selected";
+  display:block;
+  margin-top:6px;
+  font-size:12px;
+  font-weight:bold;
+  color:#1976d2;
+}
+
 
 </style>
 </head>
@@ -174,6 +210,7 @@ body {
     <span class="price">₹309</span><br>
     <small class="cod-text">Cash on Delivery</small>
   </div>
+  
 </div>
 
 
@@ -186,6 +223,17 @@ body {
     <small class="cod-text">Cash on Delivery</small>
   </div>
 </div>
+
+<div class="card" onclick="openProduct('customlamp')">
+  <div class="badge">🎁 Custom</div>
+  <img src="l1.jpg">
+  <div class="p">
+    <b>Custom Photo Moon Lamp</b><br>
+    <span class="price">From 405</span><br>
+    <small class="cod-text">Personalized Product</small>
+  </div>
+</div>
+
 
 
 </div>
@@ -231,6 +279,12 @@ body {
   </div>
 
   <div class="box" id="features"></div>
+  <div class="box" id="optionsBox" style="display:none">
+  <b>Select Variant</b>
+
+  <div id="optionsArea"></div>
+</div>
+
 
   <div class="box">
     <b>🔵 Full Online Payment</b>
@@ -261,43 +315,7 @@ body {
   </p>
 </div>
 
-  <div class="box" id="features"></div>
-   <div class="box">
-  <b>Customer Reviews</b>
 
-<div class="box">
-  <b>Customer Reviews</b>
-
-  <!-- REVIEW 1 -->
-  <div style="display:flex;gap:10px;margin-top:12px;align-items:flex-start">
-    <img src="p2.jpg" style="width:60px;height:60px;border-radius:8px;object-fit:cover">
-    <div style="font-size:14px">
-      <b>Rahul</b><br>
-      ⭐⭐⭐⭐⭐<br>
-      Quality bohot achhi hai, bilkul Meesho jaisa product 🔥
-    </div>
-  </div>
-
-  <!-- REVIEW 2 -->
-  <div style="display:flex;gap:10px;margin-top:12px;align-items:flex-start">
-    <img src="p1.jpg" style="width:60px;height:60px;border-radius:8px;object-fit:cover">
-    <div style="font-size:14px">
-      <b>Pooja</b><br>
-      ⭐⭐⭐⭐<br>
-      Price ke hisaab se best hai 👍
-    </div>
-  </div>
-
-  <!-- REVIEW 3 -->
-  <div style="display:flex;gap:10px;margin-top:12px;align-items:flex-start">
-    <img src="p3.jpg" style="width:60px;height:60px;border-radius:8px;object-fit:cover">
-    <div style="font-size:14px">
-      <b>Amit</b><br>
-      ⭐⭐⭐⭐⭐<br>
-      COD option ke wajah se order kiya, genuine product 💯
-    </div>
-  </div>
-</div>
 
    <div class="box">
   <b>Add Your Review</b>
@@ -345,7 +363,65 @@ const products={
       "✔ Perfect gift",
       "✔ Energy efficient"
     ]
-  }
+  },
+  customlamp:{
+  name:"Custom Photo Moon Lamp",
+  title:"Custom Photo Moon Lamp | Personalized Gift",
+  
+  // DEFAULT price (single photo)
+  price:405,
+  codAdvance:90,
+  codDelivery:315,
+
+  rating:"⭐ 4.8 | 2,300+ Reviews",
+
+  imgs:[
+    "l1.jpg",
+    "l2.jpg",
+    "l3.jpg",
+    "l4.jpg"
+  ],
+
+  features:[
+    "✔ Your photo printed on lamp",
+    "✔ Perfect couple & gift item",
+    "✔ Warm LED light",
+    "✔ Wooden base",
+    "✔ Custom made product"
+  ],
+
+  // 🔥 IMPORTANT PART (OPTIONS)
+  options:[
+    {
+      label:"Single Photo Lamp",
+      price:369,
+      codAdvance:90,
+      codDelivery:279
+    },
+    {
+      label:"Multiple Photo Lamp (Collage)",
+      price:405,
+      codAdvance:90,
+      codDelivery:315
+    }
+  ],
+
+  reviews:[
+    {
+      name:"Rohit",
+      stars:5,
+      text:"Single photo lamp liya, quality zabardast 😍",
+      img:"customrev1.jpg"
+    },
+    {
+      name:"Sneha",
+      stars:5,
+      text:"Collage lamp gift diya tha, sabko pasand aaya ❤️",
+      img:"customrev2.jpg"
+    }
+  ]
+}
+
 };
 
 function openProduct(key){
@@ -361,6 +437,24 @@ function openProduct(key){
 
   images.innerHTML=currentProduct.imgs.map(i=>`<img src="${i}">`).join("");
   features.innerHTML="<b>Product Features</b><ul>"+currentProduct.features.map(f=>`<li>${f}</li>`).join("")+"</ul>";
+  optionsArea.innerHTML = "";
+optionsBox.style.display = "none";
+
+if(currentProduct.options){
+  optionsBox.style.display = "block";
+
+  currentProduct.options.forEach((opt,index)=>{
+    optionsArea.innerHTML += `
+      <div class="option-btn" id="opt${index}"
+        onclick="selectOption(${index})">
+        <b>${opt.label}</b><br>
+        <span>₹${opt.price} • ₹${opt.codAdvance} Advance</span>
+      </div>
+    `;
+  });
+}
+
+
 
   onlineBtn.innerText=`Pay ₹${currentProduct.price} Online`;
   codBtn.innerText=`Order COD (₹${currentProduct.codAdvance} Advance)`;
@@ -434,6 +528,31 @@ function showStickyBar(){
 function hideStickyBar(){
   document.getElementById("stickyBar").style.display = "none";
 }
+function selectOption(i){
+
+  // remove active from all
+  document.querySelectorAll(".option-btn")
+    .forEach(b=>b.classList.remove("active"));
+
+  // add active to selected
+  document.getElementById("opt"+i)
+    .classList.add("active");
+
+  const opt = currentProduct.options[i];
+
+  currentProduct.price = opt.price;
+  currentProduct.codAdvance = opt.codAdvance;
+  currentProduct.codDelivery = opt.codDelivery;
+
+  price.innerText = "₹"+opt.price;
+  breakup.innerText =
+    `₹${opt.price} Total • ₹${opt.codDelivery} COD • ₹${opt.codAdvance} Advance`;
+
+  onlineBtn.innerText = `Pay ₹${opt.price} Online`;
+  codBtn.innerText = `Order COD (₹${opt.codAdvance} Advance)`;
+}
+
+
 
 </script>
 <!-- STICKY BUY BAR -->
@@ -469,4 +588,5 @@ z-index:999;
 </div>
 
 </body>
-      </html>
+</html>
+  
