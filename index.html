@@ -190,7 +190,11 @@ body {
   font-weight:bold;
   color:#1976d2;
 }
-
+/* Hide bottom bar by default (home page) */
+.bottom-bar{
+  display:none;
+  }
+  
 
 </style>
 </head>
@@ -570,11 +574,11 @@ z-index:999;
 ">
 
   <button class="online" style="flex:1" onclick="payOnline()">
-    Pay Online
+   💳 Pay Online
   </button>
 
   <button class="cod" style="flex:1" onclick="payCOD()">
-    Order COD
+    📦 Order COD
   </button>
 
 </div>
